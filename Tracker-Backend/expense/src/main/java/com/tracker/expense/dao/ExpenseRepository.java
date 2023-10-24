@@ -1,5 +1,11 @@
 package com.tracker.expense.dao;
 
-public interface ExpenseRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+import com.tracker.expense.entities.Expense;
+
+@Repository
+public interface ExpenseRepository extends JpaRepository<Expense, Long> {
+	
 }
