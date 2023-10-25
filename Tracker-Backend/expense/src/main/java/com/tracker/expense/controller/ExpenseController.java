@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tracker.expense.dto.ExpenseDto;
 import com.tracker.expense.entities.Expense;
+import com.tracker.expense.mapper.ExpenseDtoToExpenseEntityMapper;
 import com.tracker.expense.service.ExpenseService;
 
 @CrossOrigin
@@ -28,6 +30,9 @@ public class ExpenseController {
 
 	@Autowired
 	ExpenseService expenseService;
+	
+	@Autowired
+	ExpenseDtoToExpenseEntityMapper mapper;
 	
 	@GetMapping("/expense/{expenseId}")
 	public ResponseEntity<Expense> getExpenseById(@PathVariable Long expenseId) {
@@ -62,8 +67,9 @@ public class ExpenseController {
 	}
 	
 	@PostMapping("/new_expense")
-	public ResponseEntity<Expense> saveExpense(@RequestBody Expense expense) {
-		logger.info("inside saveExpense() method of expense controller, expense is {}",expense);
+	public ResponseEntity<Expense> saveExpense(@RequestBody ExpenseDto expenseDto) {
+		logger.info("inside saveExpense() method of expense controller, expense is {}",expenseDto);
+		Expense expense = mapper.mapDtoToEntity(expenseDto);
 		Expense response = null;
 		try {
 			response = expenseService.saveExpense(expense);
@@ -78,8 +84,9 @@ public class ExpenseController {
 	}
 	
 	@PutMapping("/update_expense/{expenseId}")
-	public ResponseEntity<Expense> updateExpense(@RequestBody Expense expense, @PathVariable Long expenseId) {
-		logger.info("inside updateExpense() method of expense controller, EXPENSE is {}",expense);
+	public ResponseEntity<Expense> updateExpense(@RequestBody ExpenseDto expenseDto, @PathVariable Long expenseId) {
+		logger.info("inside updateExpense() method of expense controller, EXPENSE is {}",expenseDto);
+		Expense expense = mapper.mapDtoToEntity(expenseDto);
 		Expense response = null;
 		try {
 			response = expenseService.updateExpense(expense, expenseId);
