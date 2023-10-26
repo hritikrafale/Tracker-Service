@@ -1,5 +1,8 @@
 package com.tracker.expense.mapper;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.stereotype.Component;
 
 import com.tracker.expense.dto.ExpenseDto;
@@ -12,9 +15,13 @@ public class ExpenseDtoToExpenseEntityMapper {
 		Expense expense = new Expense();
 		expense.setExpenseAmount(expenseDto.getExpenseAmount());
 		expense.setExpenseCategory(expenseDto.getExpenseCategory());
-		expense.setExpenseDate(expenseDto.getExpenseDate());
+		expense.setExpenseDate(formatDate(expenseDto.getExpenseDate()));
 		expense.setExpenseDescription(expenseDto.getExpenseDescription());
 		return expense;
 	}
 	
+	public LocalDate formatDate(String date) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(date, formatter);
+	}
 }

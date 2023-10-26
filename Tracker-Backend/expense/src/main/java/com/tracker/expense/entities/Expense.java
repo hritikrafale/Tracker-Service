@@ -1,5 +1,7 @@
 package com.tracker.expense.entities;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,5 +23,5 @@ public class Expense {
 	private double expenseAmount;
 	private String expenseDescription;
 	private String expenseCategory;
-	private String expenseDate;
+	private LocalDate expenseDate;
 }

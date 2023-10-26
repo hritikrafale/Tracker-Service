@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tracker.expense.dto.ExpenseDto;
@@ -24,6 +25,7 @@ import com.tracker.expense.service.ExpenseService;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/api/expenses")
 public class ExpenseController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ExpenseController.class);
@@ -34,7 +36,7 @@ public class ExpenseController {
 	@Autowired
 	ExpenseDtoToExpenseEntityMapper mapper;
 	
-	@GetMapping("/expense/{expenseId}")
+	@GetMapping("/{expenseId}")
 	public ResponseEntity<Expense> getExpenseById(@PathVariable Long expenseId) {
 		logger.info("inside getExpenseById() method of expense controller");
 		Expense expense = null;
@@ -50,7 +52,7 @@ public class ExpenseController {
 		return new ResponseEntity<>(expense, HttpStatus.OK);
 	}
 	
-	@GetMapping("/all_expenses")
+	@GetMapping("")
 	public ResponseEntity<List<Expense>> getAllExpenses(){
 		logger.info("inside getAllExpenses() method of expense controller");
 		List<Expense> expenseList = null;
@@ -66,7 +68,7 @@ public class ExpenseController {
 		return new ResponseEntity<>(expenseList, HttpStatus.OK);
 	}
 	
-	@PostMapping("/new_expense")
+	@PostMapping("")
 	public ResponseEntity<Expense> saveExpense(@RequestBody ExpenseDto expenseDto) {
 		logger.info("inside saveExpense() method of expense controller, expense is {}",expenseDto);
 		Expense expense = mapper.mapDtoToEntity(expenseDto);
@@ -83,7 +85,7 @@ public class ExpenseController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
-	@PutMapping("/update_expense/{expenseId}")
+	@PutMapping("/{expenseId}")
 	public ResponseEntity<Expense> updateExpense(@RequestBody ExpenseDto expenseDto, @PathVariable Long expenseId) {
 		logger.info("inside updateExpense() method of expense controller, EXPENSE is {}",expenseDto);
 		Expense expense = mapper.mapDtoToEntity(expenseDto);
@@ -100,7 +102,7 @@ public class ExpenseController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/delete_expense/{expenseId}")
+	@DeleteMapping("/{expenseId}")
 	public void deleteExpense(@PathVariable Long expenseId) {
 		logger.info("inside deleteExpense() method of expense controller, EXPENSE ID is {}",expenseId);
 		try {
