@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tracker.expense.dao.LookupRepository;
-import com.tracker.expense.entities.LookupData;
 import com.tracker.expense.service.LookupService;
 
 @Service
@@ -20,9 +19,9 @@ public class LookupServiceImpl implements LookupService {
 	private LookupRepository lookupRepo;
 	
 	@Override
-	public List<LookupData> getLookupDataByLookuptype(String lookupType) {
+	public List<String> getLookupDataByLookuptype(String lookupType) {
 		logger.info("inside getLookupDataByLookuptype() method of lookup service");
-		return lookupRepo.findByLookupType(lookupType);
+		return lookupRepo.findLookupDataByLookupType(lookupType);
 	}
 
 }

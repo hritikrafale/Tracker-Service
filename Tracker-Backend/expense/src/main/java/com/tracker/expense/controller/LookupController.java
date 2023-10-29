@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tracker.expense.entities.LookupData;
 import com.tracker.expense.service.LookupService;
 
 @CrossOrigin
@@ -28,9 +27,9 @@ public class LookupController {
 	private LookupService lookupService;
 
 	@GetMapping("/{lookupType}")
-	public ResponseEntity<List<LookupData>> getLookupDataByLookupType(@PathVariable String lookupType){
+	public ResponseEntity<List<String>> getLookupDataByLookupType(@PathVariable String lookupType){
 		logger.info("inside getLookupDataByLookupType() method of Lookup controller");
-		List<LookupData> lookupData = null;
+		List<String> lookupData = null;
 		try {
 			lookupData = lookupService.getLookupDataByLookuptype(lookupType);
 		}catch(Exception exception) {
